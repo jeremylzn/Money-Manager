@@ -1,0 +1,60 @@
+.delete-btn {
+    background-color: red;
+    padding: 12px;
+    width: 200px;
+    border: 1px solid red;
+    font-size: 20px;
+}
+
+.delete-btn:hover {
+    background-color: white;
+    border: 1px solid red;
+}
+
+.expenses-btn,
+.incomes-btn,
+.stats-btn,
+.addinput-btn {
+    background-color: white;
+    padding: 12px;
+    width: 200px;
+    border: 1px solid red;
+    font-size: 20px;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transition-duration: 1s;
+}
+
+button {
+    background-color: white;
+    border: 1px solid black;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.plus-btn {
+    width: 90%;
+    margin-left: 5%;
+    background-color: #46a049;
+}
+
+.plus-btn:hover {
+    background-color: white;
+    border: 1px solid #46a049;
+}
+
+.sum-btn {
+    background-color: white;
+    border: 1px solid #46a049;
+}
+
+.sum-btn:hover {
+    background-color: #46a049;
+}

@@ -1,0 +1,17 @@
+.header,
+.footer {
+    background: #ecd7d2;
+    text-align: center;
+    padding: 10px;
+}
+
+.header h1,
+.footer p {
+    font-weight: bold;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
