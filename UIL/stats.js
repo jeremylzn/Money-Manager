@@ -9,7 +9,7 @@ function addStatsController(app) {
 
     app.post("/home/expensesData", (req, res) => {
         let expenses = req.body.json_expenses;
-        // console.log(expenses);
+        console.log(expenses);
         // let expensesKeys = [];
         // let expensesValues = [];
         // for (var key in expenses) {
@@ -33,7 +33,7 @@ function addStatsController(app) {
 
     app.post("/home/incomesData", (req, res) => {
         let incomes = req.body.json_incomes;
-        // console.log(incomes);
+        console.log(incomes);
         // let incomesKeys = [];
         // let incomesValues = [];
         // for (var key in incomes) {
