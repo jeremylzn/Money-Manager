@@ -57,10 +57,10 @@ $(function() {
             var newKey = toTitleCase($('.expenses')[index].innerHTML.substring(44)).replace(/\s/g, '')
             var newValue = parseFloat($('.inputExpenses')[index].value)
             json_expenses[newKey] = newValue
-            $('#general-stats').html(generalStats);
 
         }
         $('#expenses-stats').html(expensesStats);
+
         incomesStats = 0;
         for (let index = 0; index < $('.inputIncomes').length; index++) {
             incomesStats += parseFloat($('.inputIncomes')[index].value);
@@ -68,15 +68,6 @@ $(function() {
             var newValue = parseFloat($('.inputIncomes')[index].value)
             json_incomes[newKey] = newValue
         }
-        //-----------------------------
-        // Request the data to DB :
-        $.post("/home/expensesData", {
-            json_expenses
-        });
-        $.post("/home/incomesData", {
-            json_incomes
-        });
-        // ----------------------------
         $('#incomes-stats').html(incomesStats);
         var arr = $("[name='calcul']");
         generalStats = 0;
@@ -89,6 +80,17 @@ $(function() {
             }
         }
 
+        //-----------------------------
+        // Request the data to DB :
+        $.post("/home/expensesData", {
+            json_expenses
+        });
+        $.post("/home/incomesData", {
+            json_incomes
+        });
+        // ----------------------------
+
+        $('#general-stats').html(generalStats);
         $(".statistic-content").toggleClass("active");
 
     });
