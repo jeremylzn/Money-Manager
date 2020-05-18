@@ -7,6 +7,7 @@ class ExpensesPerUser {
         return dal.runQuery(`CREATE TABLE IF NOT EXISTS ExpensesPerUser(
                                 Id                  int AUTO_INCREMENT PRIMARY KEY,
                                 UserId              int NOT NULL,
+                                Date                VARCHAR(30) NOT NULL,
                                 Housing             decimal(10,2) NOT NULL,
                                 Food                decimal(10,2) NOT NULL,
                                 Transport           decimal(10,2) NOT NULL,

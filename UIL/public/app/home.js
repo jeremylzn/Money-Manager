@@ -52,6 +52,10 @@ $(function() {
     $(".stats-btn").click(function() {
         expensesStats = 0;
 
+        var newValue = `${$('.year')[0].value}-${$('.month')[0].value}`;
+        var newKey = 'Date'
+        json_expenses[newKey] = newValue
+
         for (let index = 0; index < $('.inputExpenses').length; index++) {
             expensesStats -= parseFloat($('.inputExpenses')[index].value);
             var newKey = toTitleCase($('.expenses')[index].innerHTML.substring(44)).replace(/\s/g, '')
@@ -62,6 +66,11 @@ $(function() {
         $('#expenses-stats').html(expensesStats);
 
         incomesStats = 0;
+
+        var newValue = `${$('.year')[0].value}-${$('.month')[0].value}`;
+        var newKey = 'Date'
+        json_incomes[newKey] = newValue
+
         for (let index = 0; index < $('.inputIncomes').length; index++) {
             incomesStats += parseFloat($('.inputIncomes')[index].value);
             var newKey = toTitleCase($('.incomes')[index].innerHTML.substring(44)).replace(/\s/g, '')
