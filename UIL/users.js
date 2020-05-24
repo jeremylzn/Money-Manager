@@ -11,7 +11,6 @@ function addUserController(app) {
 
     app.get("/home/userInfos", (req, res) => {
         let userInfos = bll.retrieveDataUser(); // [userEmail, userPassword, userName, userId]
-        // console.log(bll.retrieveDataUser())
         res.json({
             userEmail: userInfos[0],
             userPassword: userInfos[1],

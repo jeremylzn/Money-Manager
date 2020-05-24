@@ -58,7 +58,8 @@ $(function() {
 
         for (let index = 0; index < $('.inputExpenses').length; index++) {
             expensesStats -= parseFloat($('.inputExpenses')[index].value);
-            var newKey = toTitleCase($('.expenses')[index].innerHTML.substring(44)).replace(/\s/g, '')
+            var newKey = $('.expenses')[index].innerHTML.indexOf(">")
+            var newKey = toTitleCase($('.expenses')[index].innerHTML.substring($('.expenses')[index].innerHTML.indexOf(">") + 1)).replace(/\s/g, '')
             var newValue = parseFloat($('.inputExpenses')[index].value)
             json_expenses[newKey] = newValue
 
@@ -73,7 +74,7 @@ $(function() {
 
         for (let index = 0; index < $('.inputIncomes').length; index++) {
             incomesStats += parseFloat($('.inputIncomes')[index].value);
-            var newKey = toTitleCase($('.incomes')[index].innerHTML.substring(44)).replace(/\s/g, '')
+            var newKey = toTitleCase($('.incomes')[index].innerHTML.substring($('.incomes')[index].innerHTML.indexOf(">") + 1)).replace(/\s/g, '')
             var newValue = parseFloat($('.inputIncomes')[index].value)
             json_incomes[newKey] = newValue
         }
@@ -88,14 +89,13 @@ $(function() {
                     generalStats += parseInt(arr[i].value);
             }
         }
-
-        //-----------------------------
-        // Request the data to DB :
-        $.post("/home/expensesData", {
-            json_expenses
-        });
+        console.log(json_incomes)
+        console.log(json_expenses)
+            //-----------------------------
+            // Request the data to DB :
         $.post("/home/incomesData", {
-            json_incomes
+            json_incomes,
+            json_expenses
         });
         // ----------------------------
 
@@ -125,7 +125,7 @@ $(function() {
         newtr.className = 'element'
         newtd.innerHTML = '<input type = "number" class = "inputExpenses" value = "0" step = "0.01" name = "calcul"> </input>'
         newth.className = `th expenses`
-        newth.innerHTML = `<input type="checkbox" class="del-checkbox"> ${nameInput}`
+        newth.innerHTML = '<input type="checkbox" id=' + nameInput + ' class="del-checkbox"> ' + nameInput
         newtr.appendChild(newth)
         newtr.appendChild(newtd)
         document.getElementById("plusexpenses").appendChild(newtr);
@@ -138,6 +138,7 @@ $(function() {
 // Add input incomes :
 $(function() {
     $(".btn-incomes, .addinput-incomes").click(function() {
+
         $(".addinput-content-incomes,.addinput-incomes").toggleClass("active");
     });
     $(".addinput-btn-incomes").click(function(nameInput) {
@@ -149,7 +150,7 @@ $(function() {
         newtr.className = 'element'
         newtd.innerHTML = '<input type = "number" class = "inputIncomes" value = "0" step = "0.01" name = "calcul"> </input>'
         newth.className = `th incomes`
-        newth.innerHTML = `<input type="checkbox" class="del-checkbox"> ${nameInput}`
+        newth.innerHTML = '<input type="checkbox" id=' + nameInput + ' class="del-checkbox"> ' + nameInput
         newtr.appendChild(newth)
         newtr.appendChild(newtd)
         document.getElementById("plusincomes").appendChild(newtr);
@@ -159,17 +160,25 @@ $(function() {
 
 // Delete input :
 function DeleteInput(inputName) {
+    // console.log(json_expenses)
+
     for (let i = 0; i < document.getElementsByClassName('del-checkbox').length; i++) {
         if (document.getElementsByClassName('del-checkbox')[i].checked == true) {
+            console.log(toTitleCase(document.getElementsByClassName('del-checkbox')[i].id));
+            delete json_expenses[toTitleCase(document.getElementsByClassName('del-checkbox')[i].id)];
+            delete json_incomes[toTitleCase(document.getElementsByClassName('del-checkbox')[i].id)];
             document.getElementsByClassName(inputName)[i].remove();
         }
+
     }
+    console.log(json_expenses)
+    console.log(json_incomes)
+
 }
 
 
 
 
-//action="/home/expensesData" method="POST"
 // Return of Expenses table :
 function Expenses_Table() {
     return '<table style="margin-top: 5%;float: left;" class="bottomBorder" id="plusexpenses">' +
@@ -179,28 +188,28 @@ function Expenses_Table() {
         '<td class="td" style="border: 0px; text-align: center;"><h4>Expenses</h4></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">Housing</th>' +
+        '<th class="th expenses"><input id="Housing" type="checkbox" class="del-checkbox">Housing</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">Food</th>' +
+        '<th class="th expenses"><input id="Food" type="checkbox" class="del-checkbox">Food</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">Transport</th>' +
+        '<th class="th expenses"><input id="Transport" type="checkbox" class="del-checkbox">Transport</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
 
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">Communication</th>' +
+        '<th class="th expenses"><input id="Communication" type="checkbox" class="del-checkbox">Communication</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">Housing charges</th>' +
+        '<th class="th expenses"><input id="Housing charges" type="checkbox" class="del-checkbox">Housing charges</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th expenses"><input type="checkbox" class="del-checkbox">University</th>' +
+        '<th class="th expenses"><input id="University" type="checkbox" class="del-checkbox">University</th>' +
         '<td><input type="number" class="inputExpenses" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '</table>'
@@ -214,21 +223,21 @@ function Incomes_Table() {
         '<td class="td" style="border: 0px; text-align: center;"><h4>Incomes</h4></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th incomes"><input type="checkbox" class="del-checkbox">Salary</th>' +
+        '<th class="th incomes"><input id="Salary" type="checkbox" class="del-checkbox">Salary</th>' +
         '<td><input type="number" class="inputIncomes" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '<tr class="element">' +
-        '<th class="th incomes"><input type="checkbox" class="del-checkbox">Scholarships</th>' +
-        '<td><input type="number" class="inputIncomes" value="0" step="0.01" name="calcul"></td>' +
-        '</tr>' +
-
-        '<tr class="element">' +
-        '<th class="th incomes"><input type="checkbox" class="del-checkbox">From Parents</th>' +
+        '<th class="th incomes"><input id="Scholarships" type="checkbox" class="del-checkbox">Scholarships</th>' +
         '<td><input type="number" class="inputIncomes" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
 
         '<tr class="element">' +
-        '<th class="th incomes"><input type="checkbox" class="del-checkbox">Extras</th>' +
+        '<th class="th incomes"><input id="From Parents" type="checkbox" class="del-checkbox">From Parents</th>' +
+        '<td><input type="number" class="inputIncomes" value="0" step="0.01" name="calcul"></td>' +
+        '</tr>' +
+
+        '<tr class="element">' +
+        '<th class="th incomes"><input id="Extras" type="checkbox" class="del-checkbox">Extras</th>' +
         '<td><input type="number" class="inputIncomes" value="0" step="0.01" name="calcul"></td>' +
         '</tr>' +
         '</table>'

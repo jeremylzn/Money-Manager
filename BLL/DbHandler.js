@@ -2,7 +2,7 @@ const dal = require('../DAL/mysql');
 const { User } = {...require('./tables/user') };
 const { ExpensesPerUser } = {...require('./tables/expensesPerUser') };
 const { IncomesPerUser } = {...require('./tables/incomesPerUser') };
-// const { DatePerStats } = {...require('./tables/datePerStats') };
+// const { StatsPerUser } = {...require('./tables/statsPerUser') };
 
 class DbHandler {
 
@@ -31,7 +31,7 @@ class DbHandler {
             User.createTable(),
             ExpensesPerUser.createTable(),
             IncomesPerUser.createTable()
-            // DatePerStats.createTable()
+            // StatsPerUser.createTable()
         ]);
 
     }
@@ -45,7 +45,7 @@ class DbHandler {
                     User.dropTable(),
                     ExpensesPerUser.dropTable(),
                     IncomesPerUser.dropTable()
-                    // DatePerStats.createTable()
+                    // StatsPerUser.createTable()
                 ])
             )
             .then(() => dal.runQuery('SET FOREIGN_KEY_CHECKS = 1'))

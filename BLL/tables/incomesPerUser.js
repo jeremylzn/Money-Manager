@@ -7,10 +7,10 @@ class IncomesPerUser {
                                 Id                  int AUTO_INCREMENT PRIMARY KEY,
                                 UserId              int NOT NULL,
                                 Date                VARCHAR(30) NOT NULL,
-                                Salary              decimal(10,2) NOT NULL,
-                                Scholarships        decimal(10,2) NOT NULL,
-                                FromParents         decimal(10,2) NOT NULL,
-                                Extras              decimal(10,2) NOT NULL,
+                                Salary              decimal(10,2),
+                                Scholarships        decimal(10,2),
+                                FromParents         decimal(10,2),
+                                Extras              decimal(10,2),
                                 FOREIGN KEY         (UserId) REFERENCES users(Id)
                                 );`);
 

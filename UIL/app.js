@@ -48,8 +48,8 @@ stats.addStatsController(app);
 
 // Begin listening
 let successCallback = () => {
-    app.listen(process.env.PORT || 5000, () => {
-        console.log("server is listening on port 5000");
+    app.listen(process.env.PORT || 9000, () => {
+        console.log("server is listening on port 9000");
     });
 };
 

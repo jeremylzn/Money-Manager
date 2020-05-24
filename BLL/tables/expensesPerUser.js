@@ -8,12 +8,12 @@ class ExpensesPerUser {
                                 Id                  int AUTO_INCREMENT PRIMARY KEY,
                                 UserId              int NOT NULL,
                                 Date                VARCHAR(30) NOT NULL,
-                                Housing             decimal(10,2) NOT NULL,
-                                Food                decimal(10,2) NOT NULL,
-                                Transport           decimal(10,2) NOT NULL,
-                                Communication       decimal(10,2) NOT NULL,
-                                HousingCharges      decimal(10,2) NOT NULL,
-                                University          decimal(10,2) NOT NULL,
+                                Housing             decimal(10,2),
+                                Food                decimal(10,2),
+                                Transport           decimal(10,2),
+                                Communication       decimal(10,2),
+                                HousingCharges      decimal(10,2),
+                                University          decimal(10,2),
                                 FOREIGN KEY         (UserId) REFERENCES users(Id)
                                 );`);
 

@@ -56,6 +56,23 @@ function extractDbResult(res) {
     return JSON.parse((JSON.stringify(res)).replace("RowDataPacket", ""));
 }
 
+function runQueryWithoutAsync(query, queryParam, tableName) {
+    connectionExport().query(query, queryParam, function(error, results, fields) {
+        if (results.length == undefined) {
+            if (error) {
+                if (error.sqlMessage.includes("Unknown column")) {
+                    dal.connectionExport().query(`ALTER table ${tableName} add column (${error.sqlMessage.substring(16,error.sqlMessage.indexOf("' in 'field list'"))} decimal(10,2) NOT NULL);`, function(error, results, fields) {
+                        if (error) throw error
+
+                    });
+
+                }
+            }
+        } else return results
+    });
+
+}
+
 
 module.exports = {
     connect,
@@ -63,5 +80,6 @@ module.exports = {
     runQuery,
     runQueryWithParam,
     connectionExport,
-    extractDbResult
+    extractDbResult,
+    runQueryWithoutAsync
 }
